@@ -5,10 +5,14 @@
 
 DELIMITER $$;
 CREATE FUNCTION SafeDiv(a INT, b INT)
-RETURNS FLOAT AS BEGIN
-  IF @b = 0
-    RETURN 0
-  ELSE
-    RETURN CAST(a AS FLOAT) / b
+RETURNS FLOAT
+DETERMINISTIC
+BEGIN
+	DECLARE result FLOAT;
+	IF b = 0 THEN
+		RETURN 0;
+        END IF;
+        SET result = (a * 1.0) / b;
+        RETURN result;
 END;$$
-DELIMITER;
+DELIMITER ;
