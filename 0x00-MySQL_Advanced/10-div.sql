@@ -3,10 +3,12 @@
 -- The function SafeDiv takes 2 arguments: a, INT and b, INT
 -- returns a / b or 0 if b == 0
 
-CREATE FUNCTION SafeDiv(@a INT, @b INT)
+DELIMITER $$;
+CREATE FUNCTION SafeDiv(a INT, b INT)
 RETURNS FLOAT AS BEGIN
   IF @b = 0
     RETURN 0
   ELSE
-    RETURN CAST(@a AS FLOAT) / @b
-END
+    RETURN CAST(a AS FLOAT) / b
+END;$$
+DELIMITER;
