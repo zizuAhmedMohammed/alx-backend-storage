@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-A function that Improve 12-log_stats.py by adding the top 10 of the most present IPs in the collection nginx of the database logs
+A function that returns all students sorted by average score
 """
 
 
 def top_students(mongo_collection):
     """
-    A function that Improve 12-log_stats.py by adding the top 10 of the most
-    present IPs in the collection nginx of the database logs
-    returns all students sorted by average score
+    A function function that returns all students sorted by average score
+    mongo_collection will be the pymongo collection object
+    The top must be ordered
+    The average score must be part of each item returns with key = averageScore
     """
     return mongo_collection.aggregate([{
         "$unwind": "$topics"
