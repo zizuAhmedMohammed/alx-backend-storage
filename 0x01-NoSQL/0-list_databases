@@ -1,5 +1,8 @@
+#!/usr/bin/env python3
+
 # Import the MongoClient class
 from pymongo import MongoClient
+
 
 # Connection URL and database name
 url = 'mongodb://localhost:27017/'
