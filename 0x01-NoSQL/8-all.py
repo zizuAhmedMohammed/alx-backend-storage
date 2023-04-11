@@ -1,22 +1,13 @@
 #!/usr/bin/env python3
+"""
+A function that lists all documents in a collection
+"""
 
-# Import the MongoClient class
-from pymongo import MongoClient
 
-# Connection URL and database name
-url = 'mongodb://localhost:27017/'
-dbName = 'admin'
-
-# Create a MongoClient object
-client = MongoClient(url)
-
-# List all databases
-dbList = client.list_database_names()
-
-# Print the list of databases
-print("Databases:")
-for db in dbList:
-    print(db)
-
-# Close the client
-client.close()
+def list_all(mongo_collection):
+    """
+    lists all documents in a collection
+    returns an empty list if no document in the collection
+    mongo_collection will be the pymongo collection object
+    """
+    return list(mongo_collection.find())
