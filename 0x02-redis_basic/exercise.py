@@ -13,7 +13,7 @@ class Cache:
     A class for caching data in Redis.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes a Redis client and flushes the instance using flushdb.
         """
