@@ -20,6 +20,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    
     def store(self, data) -> str:
         """
         Stores the input data in Redis using a randomly generated key and returns the key.
