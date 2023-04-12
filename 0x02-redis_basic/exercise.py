@@ -61,7 +61,6 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
-
 class Cache:
     """
     A class for caching data in Redis.
@@ -74,7 +73,7 @@ class Cache:
         self._redis = redis.Redis(host='localhost', port=6379, db=0)
         self._redis.flushdb()
 
-    
+
     @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
@@ -106,10 +105,10 @@ class Cache:
         """
         returns the value stored in the redis store at the key as an int
         """
-        return self.get(key, int) #type: ignore
+        return self.get(key, int)
 
     def get_str(self, key: str) -> Union[str, None]:
         """
         returns the value stored in the reds store at the key as str
         """
-        return self.get(key, str) # type: ignore
+        return self.get(key, str)
