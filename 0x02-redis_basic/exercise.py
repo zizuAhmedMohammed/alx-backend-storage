@@ -2,7 +2,7 @@
 """
 This script defines a Cache class for storing data in Redis.
 """
-import uuiid
+import uuid
 from functools import wraps
 from typing import Union, Callable, Optional
 
@@ -71,7 +71,7 @@ class Cache:
         """
         Initializes a Redis client and flushes the instance using flushdb.
         """
-        self._redis = redis.Redis()
+        self._redis = redis.Redis(host='localhost', port=6379, db=0)
         self._redis.flushdb()
 
     
@@ -102,13 +102,11 @@ class Cache:
             value = fn(value)
         return value
 
-
     def get_int(self, key: str) -> Union[int, None]:
         """
         returns the value stored in the redis store at the key as an int
         """
         return self.get(key, int)
-
 
     def get_str(self, key: str) -> Union[str, None]:
         """
