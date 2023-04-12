@@ -74,6 +74,8 @@ class Cache:
              If the `key` is not found and a default is not provided, returns None.
         """
         return self.get(key, default=default, fn=str)
+    
+    
     def get_int(self, key: str, default: int = None) -> int:
         """
         Convenience method that returns the integer value corresponding to the given key from Redis,
