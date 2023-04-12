@@ -2,8 +2,6 @@
 """
 This script defines a Cache class for storing data in Redis.
 """
-
-
 import redis
 import uuid
 
