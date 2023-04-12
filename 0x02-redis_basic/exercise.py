@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-"""
-This script defines a Cache class for storing data in Redis.
-"""
+""" exercise module """
 import uuid
 from functools import wraps
 from typing import Callable, Optional, Union
@@ -63,16 +61,15 @@ def count_calls(method: Callable) -> Callable:
 
 class Cache:
     """
-    A class for caching data in Redis.
+    A Cache class that uses redis to store and retrieve data
     """
 
     def __init__(self) -> None:
         """
-        Initializes a Redis client and flushes the instance using flushdb.
+        initializes a redis store
         """
         self._redis = redis.Redis(host='localhost', port=6379, db=0)
         self._redis.flushdb()
-
 
     @call_history
     @count_calls
@@ -84,7 +81,6 @@ class Cache:
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
-
 
     def get(
         self,
@@ -105,10 +101,10 @@ class Cache:
         """
         returns the value stored in the redis store at the key as an int
         """
-        return self.get(key, int)
+        return self.get(key, int)  # type: ignore
 
     def get_str(self, key: str) -> Union[str, None]:
         """
         returns the value stored in the reds store at the key as str
         """
-        return self.get(key, str)
+        return self.get(key, str)  # type: ignore
