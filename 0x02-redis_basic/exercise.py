@@ -2,8 +2,10 @@
 """
 This script defines a Cache class for storing data in Redis.
 """
-import redis
 import uuid
+from typing import Union
+
+import redis
 
 
 class Cache:
@@ -19,7 +21,7 @@ class Cache:
         self._redis.flushdb()
 
     
-    def store(self, data) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Stores the input data in Redis using a randomly generated key and returns the key.
 
