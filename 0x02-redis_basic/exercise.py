@@ -35,57 +35,32 @@ class Cache:
         self._redis.set(key, data)
         return key
 
+
+    def get(
+        self,
+        key: str,
+        fn: Optional[Callable] = None,
+    ) -> Union[str, bytes, int, float, None]:
+        """
+        returns the value stored in the redis store at the key by converting it
+        to its original data type by calling the function fn. if the key is not
+        found, it returns None
+        """
+        value = self._redis.get(key)
+        if value is not None and fn is not None:
+            value = fn(value)
+        return value
+
     
-    def get(self, key: str, default=None, fn: Callable[[bytes], Union[str, int]] = None) -> Union[None,str,int]:
+    def get_int(self, key: str) -> Union[int, None]:
         """
-        Retrieves the value corresponding to the given key from Redis and converts it if necessary.
-        If the `key` is not found and the `default` parameter is provided, returns it instead.
-        If the `key` is not found and the `default` parameter is not provided, returns None.
-        Args:
-            key: A string representing a Redis key.
-            default: A default value to return if `key` is not found in Redis. Defaults to None.
-            fn: A callable object that will be used to convert the value if necessary.
-                For example, if you want to always retrieve a str from Redis,
-                you can pass str as `fn`. Defaults to None.
-        Returns:
-            The Redis value corresponding to `key`, converted via `fn` if necessary.
-            If the `key` is not found and a default value is not provided, returns None.
+        returns the value stored in the redis store at the key as an int
         """
-        result = self._redis.get(key)
-        if result is None:
-            return default
-        else:
-            if fn is not None:
-                return fn(result)
-            else:
-                return result.decode('utf-8')
+        return self.get(key, int)
+
     
-    
-    def get_str(self, key: str, default: str = None) -> str:
+    def get_str(self, key: str) -> Union[str, None]:
         """
-        Convenience method that returns the string value corresponding to the given key from Redis,
-        with an optional default value if the key is not found.
-        Args:
-            key: A string representing a Redis key.
-            default: A default value to return if `key` is not found in Redis. Defaults to None.
-        Returns:
-             The Redis string value corresponding to `key`,
-             or the default value if the `key` is not found.
-             If the `key` is not found and a default is not provided, returns None.
+        returns the value stored in the reds store at the key as str
         """
-        return self.get(key, default=default, fn=str)
-    
-    
-    def get_int(self, key: str, default: int = None) -> int:
-        """
-        Convenience method that returns the integer value corresponding to the given key from Redis,
-        with an optional default value if the key is not found.
-        Args:
-            key: A string representing a Redis key.
-            default: A default value to return if `key` is not found in Redis. Defaults to None.
-        Returns:
-             The Redis integer value corresponding to `key`,
-             or the default value if the `key` is not found.
-             If the `key` is not found and a default is not provided, returns None.
-        """
-        return self.get(key, default=default, fn=int)
+        return self.get(key, str)   
