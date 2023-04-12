@@ -4,7 +4,7 @@ This script defines a Cache class for storing data in Redis.
 """
 import uuid
 from functools import wraps
-from typing import Union, Callable, Optional
+from typing import Callable, Optional, Union
 
 import redis
 
@@ -106,10 +106,10 @@ class Cache:
         """
         returns the value stored in the redis store at the key as an int
         """
-        return self.get(key, int)
+        return self.get(key, int) #type: ignore
 
     def get_str(self, key: str) -> Union[str, None]:
         """
         returns the value stored in the reds store at the key as str
         """
-        return self.get(key, str)
+        return self.get(key, str) # type: ignore
